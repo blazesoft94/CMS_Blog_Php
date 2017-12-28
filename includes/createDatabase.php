@@ -1,7 +1,11 @@
 <?php 
-$server = "https://powerful-brook-49344.herokuapp.com";
-$username  = "root";
-$password = "";
+// $server = "localhost";
+// $username  = "root";
+// $password = "";
+  $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+  $server = $url["host"];
+  $username = $url["user"];
+  $password = $url["pass"];
 $dbName = "cms";
 $con = "";
 $con = new mysqli($server, $username, $password);
