@@ -1,5 +1,5 @@
 <?php 
-$server = "localhost";
+$server = "https://powerful-brook-49344.herokuapp.com";
 $username  = "root";
 $password = "";
 $dbName = "cms";
