@@ -1,6 +1,6 @@
 
 <?php 
-include "includes/db.php";
+include_once "includes/db.php";
 include "includes/header.php";
 ?>
 
@@ -47,7 +47,7 @@ include "includes/header.php";
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
                             <hr>
-                            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                            <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
                             <hr>
                             <p><?php echo $post_text ?></p>
                             <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -64,7 +64,7 @@ include "includes/header.php";
 
 
 
-                <h2>
+                <!-- <h2>
                     <a href="#">Blog Post Title</a>
                 </h2>
                 <p class="lead">
@@ -77,7 +77,7 @@ include "includes/header.php";
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
                 <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
-                <hr>
+                <hr> -->
 
 
                 <!-- Pager -->
@@ -106,7 +106,7 @@ include "includes/header.php";
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Abdul Rehman 18-11071 Nehal Asif 18-11070</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

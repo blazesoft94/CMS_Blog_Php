@@ -1,7 +1,7 @@
 <?php
-echo "-----------INCLUDED------------";
 
 function addCategory(){
+    global $con;
     if(isset($_POST["submit"])){
         $cat_title = myValidator($_POST['cat_title']);
         if($cat_title == "" || empty($cat_title)){
@@ -15,6 +15,7 @@ function addCategory(){
 }
 
 function editCategory(){
+    global $con;
     if(isset($_POST["edit_title"])){
         $cat_title = $_POST["cat_title"];
         $cat_id = $_POST["cat_id"];
@@ -24,6 +25,7 @@ function editCategory(){
 }
 
 function deleteCategory(){
+    global $con;
     if(isset($_GET['delete'])){
         $cat_id = $_GET['delete'];
         $sql = "DELETE FROM categories WHERE cat_id = {$cat_id}";
@@ -33,6 +35,7 @@ function deleteCategory(){
 }
 
 function displayCategory(){
+    global $con;
     $sql = "SELECT * from categories";
     $result = $con->query($sql);
     if($result->num_rows>0){
@@ -43,6 +46,16 @@ function displayCategory(){
             echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
             echo '<td><a href="#" type="button" class="" data-toggle="modal" data-id="' .$cat_id .'"data-target="#cat_edit_modal" data-title="' .$cat_title .'">Edit</a></td></tr>';
         }
+    }
+}
+
+function deletePost(){
+    global $con;
+    if(isset($_GET['delete'])){
+        $post_id = $_GET['delete'];
+        $sql = "DELETE FROM posts WHERE post_id = {$post_id}";
+        $con->query($sql);
+        header("Location: view_posts.php");
     }
 }
 

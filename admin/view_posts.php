@@ -2,9 +2,9 @@
     include "includes/header.php";
 ?>
 <?php 
-//delete category
-    deleteCategory();
-    editCategory();
+//delete post
+deletePost();
+    
 ?>
 
 <body>
@@ -28,33 +28,43 @@
                             <small class="muted">Categories</small>
                         </h1>
                         <div class="row">
-                            <div class="col-md-4">
-                                <?php //Add category
-                                    addCategory(); 
-                                ?>
-                                <form action="" method="post">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="cat_title">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" name="submit" value="Add category">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>#</th>
                                             <th>Title</th>
+                                            <th>Category Id</th>
+                                            <th>Author</th>
+                                            <th>Image</th>
+                                            <th>Date</th>
                                             <th>Delete</th>
-                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php 
-                                        //Display all categories
-                                        displayCategory();
+                                        //Display Posts
+                                        $sql = "SELECT * from posts ORDER BY post_id desc";
+                                        $result = $con->query($sql);
+                                        if($result->num_rows>0){
+                                            while($row = $result->fetch_assoc()){
+                                                $p_id = $row['post_id'];
+                                                $p_title = $row['post_title'];
+                                                $p_cat_id = $row['post_cat_id'];
+                                                $p_author = $row['post_author'];
+                                                $p_image = $row['post_image'];
+                                                $p_date = $row['post_date'];
+                                                echo "<tr>";
+                                                echo "<td>{$p_id}</td>";
+                                                echo "<td>{$p_title}</td>";
+                                                echo "<td>{$p_cat_id}</td>";
+                                                echo "<td>{$p_author}</td>";
+                                                echo "<td><img width='100' src='../images/{$p_image}'></img></td>";
+                                                echo "<td>{$p_date}</td>";
+                                                echo "<td><a href='view_posts.php?delete={$p_id}'>Delete</a></td>";
+                                                echo "</tr>";
+                                            }
+                                        }
                                     ?>  
                                         <!-- <tr>
                                             <th scope="row">1</th>
@@ -79,7 +89,7 @@
 
     </div>
     <!-- /#wrapper -->
-    <div class="modal fade" id="cat_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="cat_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,8 +115,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 <?php
     include "includes/footer.php";
 ?>
-<script src="js/categories.js"></script>
