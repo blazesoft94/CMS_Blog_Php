@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -13,7 +14,7 @@
             <ul class="nav navbar-right top-nav">
                 <li><a href="../index.php">Home</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-user"></i> <?php echo $_SESSION["username"] ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -26,9 +27,12 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="#" id="logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
+                    <form style="display:none;" action="../index.php" method="POST">
+                        <button type="submit" name="logoutButton" id="logoutButton">
+                    </form>
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -52,24 +56,16 @@
                         <a href="categories.php"><i class="fa fa-fw fa-paw"></i> Categories</a>
                     </li>
                     
-                    <!-- <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-users "></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo2" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li> -->
-                    <!-- <li class="">
-                        <a href="blank-page.html"><i class="fa fa-fw fa-comments"></i> Comments</a>
-                    </li>
                     <li>
+                        <a href="users.php"><i class="fa fa-users "></i> Users </a>
+                    </li>
+                    <li class="">
+                        <a href="comments.php"><i class="fa fa-fw fa-comments"></i> Comments</a>
+                    </li>
+                    <!-- <li>
                         <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Profile</a>
                     </li> -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-        </nav>
+</nav>

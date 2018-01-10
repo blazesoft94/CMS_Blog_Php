@@ -11,3 +11,16 @@ body {
 footer {
     margin: 50px 0;
 }
+
+
+@media only screen and (min-width: 768px) {
+    .nav-right-li{
+        position: absolute!important;
+        right:100px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .nav-right-li{
+        margin-left:10px;
+    }
+}

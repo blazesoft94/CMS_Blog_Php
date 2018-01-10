@@ -1,7 +1,26 @@
 
 <?php 
 include_once "includes/db.php";
+include_once "admin/includes/functions.php";
 include "includes/header.php";
+// if(isset($_POST["signin"])){
+//     $username = $_POST["username"];
+//     $password = $_POST["password"];
+//     $sql = "SELECT * from users where user_username = '$username' and user_password = '$password'";
+//     $result = $con->query($sql);
+//     if($result->num_rows>0){
+//         $row = $result->fetch_assoc();
+        // $_SESSION["role"] = $row["user_role"];
+        // $_SESSION["username"]= $row["user_username"];
+        // $_SESSION["login"] = true;
+//     }
+// }
+if(isset($_POST["logoutButton"])){
+    $_SESSION["role"] = "none";
+    $_SESSION["username"]= "none";
+    $_SESSION["login"] = false;
+}
+signIn();
 ?>
 
 <body>
@@ -23,24 +42,25 @@ include "includes/header.php";
                     Abdul Rehman &amp; Nehal Project
                     <small class="muted">Dr Nosheen Sabahat</small>
                 </h1>
-
                 <!-- First Blog Post -->
                 <?php 
                     $sql = "SELECT * from posts ORDER by post_id desc";
                     $result = $con->query($sql);
                     if($result->num_rows>0){
                         while($row = $result->fetch_assoc()){
+                            $post_id = $row["post_id"];
                             $post_title = $row["post_title"];
                             $post_author = $row["post_author"];
                             $post_date = $row["post_date"];
                             $post_text = $row["post_text"];
                             $post_image = $row["post_image"];
+                            
 
 
                             // echo "<h2><a href='#'>Blog Post Title</a></h2><p class='lead'>by<a href='index.php'>Start Bootstrap</a></p><p><span class='glyphicon glyphicon-time'></span> Posted on August 28, 2013 at 10:00 PM</p><hr><img class='img-responsive' src='http://placehold.it/900x300' alt=''><hr><p>Lorem </p><a class='btn btn-primary' href='#'>Read More <span class='glyphicon glyphicon-chevron-right'></span></a><hr>";
                 ?>
                          <h2>
-                            <a href="#"><?php echo $post_title ?></a>
+                            <a href="post.php?<?php echo "post_id=$post_id&post_view=true" ?>"><?php echo $post_title ?></a>
                             </h2>
                             <p class="lead">
                                 by <a href="index.php"><?php echo $post_author ?></a>
@@ -49,8 +69,8 @@ include "includes/header.php";
                             <hr>
                             <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
                             <hr>
-                            <p><?php echo $post_text ?></p>
-                            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <p><?php echo get_words($post_text) ?>...</p>
+                            <a class="btn btn-primary" href="post.php?<?php echo "post_id=$post_id&post_view=true" ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
 
@@ -116,11 +136,6 @@ include "includes/header.php";
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

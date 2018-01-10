@@ -1,9 +1,10 @@
 <?php
-session_start();
+// session_start();
 $db['db_server'] = "localhost";
 $db['db_username'] = "root";
 $db['db_password'] = "";
 $db['db_dbName'] = "cms";
+// echo"DB INCLUDED";
 
 
 // $_SESSION["login"] = false;

@@ -26,21 +26,33 @@ include "includes/header.php";
                 </h1>
                 <hr>
                 <?php
+                    $searchName="";
                     $search = "";
+                    
                     if(isset($_GET['submit'])){
                         $search = $_GET['search'];
+                        if($_GET["submit"]=="cat"){
+                            $searchName = $_GET['searchName'];
+                            $sql = "SELECT * from posts where post_cat_id = '$search' ORDER by post_id desc ";
+                        }
+                        else{
+                            $searchName = $search;
+                            $sql = "SELECT * from posts where post_tags LIKE '%$search%' ORDER by post_id desc ";
+                        }
+                       
+                        
                     }
                 ?>
-                <h2 class="display-4 text-success mb-3">Search Results for <span class=" font-italic text-dark">"<?php echo "$search"?>"</span> </h2>
+                <h2 class="display-4 text-success mb-3">Search Results for <span class=" font-italic text-dark">"<?php echo "$searchName"?>"</span> </h2>
                 <hr>
                 <!-- First Blog Post -->
                 <?php 
                 if(!empty($search)){
                     
-                    $sql = "SELECT * from posts where post_tags LIKE '%$search%' ORDER by post_id desc ";
                     $result = $con->query($sql);
                     if($result->num_rows>0){
                         while($row = $result->fetch_assoc()){
+                            $post_id= $row["post_id"];
                             $post_title = $row["post_title"];
                             $post_author = $row["post_author"];
                             $post_date = $row["post_date"];
@@ -51,17 +63,17 @@ include "includes/header.php";
                             // echo "<h2><a href='#'>Blog Post Title</a></h2><p class='lead'>by<a href='index.php'>Start Bootstrap</a></p><p><span class='glyphicon glyphicon-time'></span> Posted on August 28, 2013 at 10:00 PM</p><hr><img class='img-responsive' src='http://placehold.it/900x300' alt=''><hr><p>Lorem </p><a class='btn btn-primary' href='#'>Read More <span class='glyphicon glyphicon-chevron-right'></span></a><hr>";
                 ?>
                          <h2>
-                            <a href="#"><?php echo $post_title ?></a>
+                            <a href="post.php?<?php echo "post_id=$post_id&post_view=true" ?>"><?php echo $post_title ?></a>
                             </h2>
                             <p class="lead">
                                 by <a href="index.php"><?php echo $post_author ?></a>
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
                             <hr>
-                            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                            <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
                             <hr>
                             <p><?php echo $post_text ?></p>
-                            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a class="btn btn-primary" href="post.php?<?php echo "post_id=$post_id&post_view=true" ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
 
@@ -111,11 +123,6 @@ include "includes/header.php";
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

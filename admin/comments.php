@@ -4,8 +4,8 @@
 <?php if(isset($_SESSION["login"]) && $_SESSION["role"]=="admin"){?>
 <?php 
 //delete post
-deletePost();
-    
+deleteComment();
+changeCommentStatus();
 ?>
 
 <body>
@@ -26,7 +26,7 @@ deletePost();
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Admin Panel
-                            <small class="muted">Categories</small>
+                            <small class="muted">Comments</small>
                         </h1>
                         <div class="row">
                             <div class="col-md-12">
@@ -34,35 +34,54 @@ deletePost();
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>#</th>
-                                            <th>Title</th>
-                                            <th>Category Id</th>
+                                            <th>Post Title</th>
                                             <th>Author</th>
-                                            <th>Image</th>
+                                            <th>Email</th>
+                                            <th>Content</th>
+                                            <th>Status</th>
                                             <th>Date</th>
+                                            <th>Approve/Unapprove</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php 
                                         //Display Posts
-                                        $sql = "SELECT * from posts ORDER BY post_id desc";
+                                        $sql = "SELECT * from comments,posts where comment_post_id = post_id ORDER BY comment_id desc";
                                         $result = $con->query($sql);
                                         if($result->num_rows>0){
                                             while($row = $result->fetch_assoc()){
-                                                $p_id = $row['post_id'];
+                                                $c_id = $row['comment_id'];
                                                 $p_title = $row['post_title'];
-                                                $p_cat_id = $row['post_cat_id'];
-                                                $p_author = $row['post_author'];
-                                                $p_image = $row['post_image'];
-                                                $p_date = $row['post_date'];
+                                                $c_text = $row['comment_text'];
+                                                $c_email = $row["comment_email"];
+                                                $c_author = $row['comment_author'];
+                                                $c_status = $row['comment_status'];
+                                                $c_date = $row['comment_date'];
                                                 echo "<tr>";
-                                                echo "<td>{$p_id}</td>";
+                                                echo "<td>{$c_id}</td>";
                                                 echo "<td>{$p_title}</td>";
-                                                echo "<td>{$p_cat_id}</td>";
-                                                echo "<td>{$p_author}</td>";
-                                                echo "<td><img width='100' src='../images/{$p_image}'></img></td>";
-                                                echo "<td>{$p_date}</td>";
-                                                echo "<td><a href='view_posts.php?delete={$p_id}'>Delete</a></td>";
+                                                echo "<td>{$c_author}</td>";
+                                                echo "<td>{$c_email}</td>";
+                                                echo "<td>{$c_text}</td>";
+                                                echo "<td class=";
+                                                if($c_status == "inactive"){
+                                                    echo "'text-danger'";
+                                                }
+                                                else{
+                                                    echo "'text-success'";
+                                                }
+                                                echo ">{$c_status}</td>";
+                                                echo "<td>{$c_date}</td>";
+                                                echo "<td><a href='comments.php?statusChange=";
+                                                if($c_status == "inactive"){
+                                                    echo "active&id={$c_id}' class='text-primary'>approve";
+                                                }
+                                                else{
+                                                    echo "inactive&id={$c_id}'  class='text-danger'>unapprove";
+                                                }
+                                                echo "</a></td>";
+                                                echo "<td><a href='comments.php?delete={$c_id}'>Delete</a></td>";
                                                 echo "</tr>";
                                             }
                                         }

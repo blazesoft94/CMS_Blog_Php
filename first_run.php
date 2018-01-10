@@ -23,10 +23,10 @@ if($con->connect_error){
 
 $sql = "USE " .$dbName;
 if($con->query($sql) == TRUE){
-    echo "Database selected <br>";
+    echo "Database selected <hr>";
 }
 else{
-    echo "Database selection error";
+    echo "Database selection error<hr>";
 }
 
 $sql = "CREATE table categories (
@@ -35,19 +35,19 @@ $sql = "CREATE table categories (
 )";
 
 if($con->query($sql) == TRUE){
-    echo "category table created";
+    echo "category table created<hr>";
 }
 else{
-    echo "category table creation failed";
+    echo "category table creation failed<hr>";
 }
 
-$sql = "INSERT INTO categories (cat_id, cat_title) VALUES (NULL, 'Javascript'), (NULL, 'Php'), (NULL, 'Bootstrap'), (NULL, 'NodeJs')";
-if($con->query($sql) == TRUE){
-    echo "category data inserted";
-}
-else{
-    echo "category data insertion failed";
-}
+// $sql = "INSERT INTO categories (cat_id, cat_title) VALUES (NULL, 'Javascript'), (NULL, 'Php'), (NULL, 'Bootstrap'), (NULL, 'NodeJs')";
+// if($con->query($sql) == TRUE){
+//     echo "category data inserted<hr>";
+// }
+// else{
+//     echo "category data insertion failed<hr>";
+// }
 
 //----------------
 
@@ -67,22 +67,72 @@ $sql = "CREATE table posts (
 )";
 
 if($con->query($sql) == TRUE){
-    echo "post table created";
+    echo "post table created<hr>";
 }
 else{
-    echo "post table creation failed";
+    echo "post table creation failed<hr>";
 }
 
-$sql = "INSERT INTO categories (cat_id, cat_title) VALUES (NULL, 'Javascript'), (NULL, 'Php'), (NULL, 'Bootstrap'), (NULL, 'NodeJs')";
+// $sql = "INSERT INTO categories (cat_id, cat_title) VALUES (NULL, 'Javascript'), (NULL, 'Php'), (NULL, 'Bootstrap'), (NULL, 'NodeJs')";
+// if($con->query($sql) == TRUE){
+//     echo "category data inserted";
+// }
+// else{
+//     echo "category data insertion failed";
+// }
+
+$sql = "CREATE TABLE comments (
+    comment_id int(3) primary key AUTO_INCREMENT,
+    comment_post_id int(3),
+    comment_author varchar(255),
+    comment_email varchar(255),
+    comment_text text,
+    comment_date date,
+    comment_status varchar(255) default 'inactive',
+    foreign key (comment_post_id) references posts(post_id)
+)";
+
 if($con->query($sql) == TRUE){
-    echo "category data inserted";
+    echo "comment table created<hr>";
 }
 else{
-    echo "category data insertion failed";
+    echo "comment table creation failed<hr>";
 }
 
+$sql = "CREATE TABLE users (
+    user_id int(3) primary key AUTO_INCREMENT,
+    user_username varchar(255),
+    user_firstname varchar(255),
+    user_lastname varchar(255),
+    user_email varchar(255),
+    user_image text,
+    user_role varchar(255) default 'user',
+    user_password varchar(255),
+    randSalt varchar(255)
 
+)";
 
+if($con->query($sql) == TRUE){
+    echo "user table created<hr>";
+}
+else{
+    echo "user table creation failed<hr>";
+}
 
+$sql = "CREATE TABLE polls(
+    poll_id int(3) primary key AUTO_INCREMENT,
+    poll_post_id int(3),
+    poll_user_id int(3),
+    poll_vote varchar(3),
+    foreign key (poll_post_id) references posts(post_id),
+    foreign key (poll_user_id) references users(user_id)
+)";
+
+if($con->query($sql) == TRUE){
+    echo "poll table created<hr>";
+}
+else{
+    echo "poll table creation failed<hr>";
+}
 
 ?>

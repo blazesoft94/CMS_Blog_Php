@@ -5,9 +5,9 @@
             <h4>Blog Search</h4>
             <form method="GET" action="search.php">
                 <div class="input-group">
-                    <input name="search" type="text" class="form-control">
+                    <input name="tag" type="text" class="form-control">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit" name="submit" value="TRUE">
+                        <button class="btn btn-default" type="submit" name="submit" value="tag">
                             <span class="glyphicon glyphicon-search"></span>
                     </button>
                     </span>
@@ -27,12 +27,19 @@
                         $result = $con->query($sql);
                         if($result->num_rows>0){
                             $count = 0;
+                            $count_int=0;
+                            $count_odd=0;
                             while($row = $result->fetch_assoc()){
                                 if($count%2 == 0){
-                                    array_push($cat_col1,$row['cat_title']);
+                                    $cat_col1[$count_int][0]= $row['cat_id'];
+                                    $cat_col1[$count_int][1]= $row['cat_title'];
+                                    //array_push($cat_col1,$row['cat_title']);
+                                    $count_int++;
                                 }
                                 else{
-                                    array_push($cat_col2,$row['cat_title']);
+                                    $cat_col2[$count_odd][0]= $row['cat_id'];
+                                    $cat_col2[$count_odd][1]= $row['cat_title'];
+                                    $count_odd++;
                                 }
                                 $count++;
                                 //echo "<li><a href='#'>$cat_title</a></li>";
@@ -43,7 +50,7 @@
                     <ul class="list-unstyled">
                         <?php 
                             foreach($cat_col1 as $value){
-                                echo "<li><a href='#'>$value</a></li>";
+                                echo "<li><a href='search.php?search=".$value[0] ."&submit=cat&searchName=" .$value[1] ."' >" .$value[1] ."</a></li>";
                             }
                         ?>
                     </ul>
@@ -53,7 +60,7 @@
                     <ul class="list-unstyled">
                         <?php 
                             foreach($cat_col2 as $value){
-                                echo "<li><a href='#'>$value</a></li>";
+                                echo "<li><a href='search.php?search=".$value[0] ."&submit=cat&searchName=" .$value[1] ."' >" .$value[1] ."</a></li>";
                             }
                         ?>
                     </ul>

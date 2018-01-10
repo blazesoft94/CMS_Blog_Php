@@ -3,8 +3,7 @@
     include_once "../includes/db.php";
     include_once "includes/functions.php";
 ?>
-<?php session_start() ?>
-
+<?php if(isset($_SESSION["login"]) && $_SESSION["role"]=="admin"){?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,9 +78,10 @@
                             Admin Panel
                             <small class="muted">Add Post</small>
                         </h1>
-                        <div class="row">
-                            <h3 class="lead text-success">Post added</h3>
-                        </div>
+                        <?php if($post_added){
+                            echo "<div class='row'><h3 class='lead text-success'>Post added</h3></div>";
+                        }
+                        ?>
                         <div class="row">
                             <div class="col-md-8 col-lg-6">
                                 <form action="" method="POST" enctype="multipart/form-data">
@@ -173,3 +173,8 @@
         });
     });
 </script>
+<?php }
+else{
+    header("Location: ../index.php");
+}
+?>

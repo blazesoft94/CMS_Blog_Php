@@ -1,7 +1,8 @@
+
 <?php
     include "includes/header.php";
 ?>
-
+<?php if(isset($_SESSION["login"]) && $_SESSION["role"]=="admin"){?>
 <body>
 
     <div id="wrapper">
@@ -22,6 +23,7 @@
                             Admin Panel
                             <small class="muted">Dashboard</small>
                         </h1>
+                        
                         <!-- <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
@@ -44,11 +46,12 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
 </body>
 
 </html>
+<?php }
+else{
+    header("Location: ../index.php");
+}
+?>

@@ -1,6 +1,7 @@
 <?php
     include "includes/header.php";
 ?>
+<?php if(isset($_SESSION["login"]) && $_SESSION["role"]=="admin"){?>
 <?php 
 //delete category
     deleteCategory();
@@ -110,3 +111,8 @@
     include "includes/footer.php";
 ?>
 <script src="js/categories.js"></script>
+<?php }
+else{
+    header("Location: ../index.php");
+}
+?>
